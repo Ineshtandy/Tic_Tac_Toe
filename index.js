@@ -1,5 +1,5 @@
 let gameboard_holder = (() => {
-    let gameboard = [['x','o','x'],['x','o','x'],['o','x','o']];
+    let gameboard = [['!','!','!'],['!','!','!'],['!','!','!']];
     return { gameboard };
 })();
 
@@ -31,11 +31,15 @@ let display_container = (() => {
             board_element.forEach(symbol => {
                 let symbolEl = document.createElement('div');
                 symbolEl.className = 'col symbol-el';
-                symbolEl.textContent = symbol;
+                //symbolEl.textContent = symbol;
 
                 // adding functionality
                 symbolEl.addEventListener('click', () => {
+                    console.log(symbol);
                     symbolEl.style = "background-color: blue;";
+                    symbolEl.textContent = 'x';
+                    symbol = symbolEl.textContent;
+                    console.log(symbol);
                 });
                 symbolEl.addEventListener('dblclick', () => {
                     symbolEl.style = "background-color: white;";
