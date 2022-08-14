@@ -35,11 +35,17 @@ let display_container = (() => {
 
                 // adding functionality
                 symbolEl.addEventListener('click', () => {
-                    console.log(symbol);
+                    //console.log(symbol);
                     symbolEl.style = "background-color: blue;";
-                    symbolEl.textContent = 'x';
-                    symbol = symbolEl.textContent;
-                    console.log(symbol);
+                    if(symbolEl.textContent !== '!'){
+                        if(symbolEl.textContent === 'x' || symbolEl.textContent === 'o'){
+                            console.log('no entry');
+                        } else{
+                            symbolEl.textContent = 'x';
+                            symbol = symbolEl.textContent;
+                            console.log(symbol);
+                        }
+                    }
                 });
                 symbolEl.addEventListener('dblclick', () => {
                     symbolEl.style = "background-color: white;";
