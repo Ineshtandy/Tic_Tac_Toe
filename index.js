@@ -7,9 +7,146 @@ let player = (name , symbol) => {
     return { name , symbol };
 }
 
-let controller = (() => {
+let logic = (() => {
+    let boardelm = gameboard_holder.gameboard;
 
-})
+    let should_print = true;
+
+    let checker = (symbol) => {
+        //horizontal 1
+        if(
+            boardelm[0][0] === boardelm[0][1] && boardelm[0][1] === boardelm[0][2] && 
+            boardelm[0][0] !== '!' && boardelm[0][1] !== '!' && boardelm[0][2] !== '!' ){
+
+                let winner_displayelm = document.createElement('div');
+                winner_displayelm.textContent = `${symbol} is the winner`;
+
+                if(should_print){
+                    document.body.appendChild(winner_displayelm);
+                    should_print = false;
+                }
+        }    
+
+        //horizontal 2
+        else if(
+            boardelm[1][0] === boardelm[1][1] && boardelm[1][1] === boardelm[1][2] && 
+            boardelm[1][0] !== '!' && boardelm[1][1] !== '!' && boardelm[1][2] !== '!' ){
+
+                let winner_displayelm = document.createElement('div');
+                winner_displayelm.textContent = `${symbol} is the winner`;
+
+                if(should_print){
+                    document.body.appendChild(winner_displayelm);
+                    should_print = false;
+                }
+        }    
+
+        //horizontal 3
+        else if(
+            boardelm[2][0] === boardelm[2][1] && boardelm[2][1] === boardelm[2][2] && 
+            boardelm[2][0] !== '!' && boardelm[2][1] !== '!' && boardelm[2][2] !== '!' ){
+
+                let winner_displayelm = document.createElement('div');
+                winner_displayelm.textContent = `${symbol} is the winner`;
+
+                if(should_print){
+                    document.body.appendChild(winner_displayelm);
+                    should_print = false;
+                }
+                
+        }    
+
+        //vertical 1
+        else if(
+            boardelm[0][0] === boardelm[1][0] && boardelm[1][0] === boardelm[2][0] && 
+            boardelm[0][0] !== '!' && boardelm[1][0] !== '!' && boardelm[2][0] !== '!' ){
+
+                let winner_displayelm = document.createElement('div');
+                winner_displayelm.textContent = `${symbol} is the winner`;
+
+                if(should_print){
+                    document.body.appendChild(winner_displayelm);
+                    should_print = false;
+                }
+                
+        }    
+
+        //vertical 2
+        else if(
+            boardelm[0][1] === boardelm[1][1] && boardelm[1][1] === boardelm[2][1] && 
+            boardelm[0][1] !== '!' && boardelm[1][1] !== '!' && boardelm[2][1] !== '!' ){
+
+                let winner_displayelm = document.createElement('div');
+                winner_displayelm.textContent = `${symbol} is the winner`;
+
+                if(should_print){
+                    document.body.appendChild(winner_displayelm);
+                    should_print = false;
+                }
+                
+        }    
+
+        //vertical 3
+        else if(
+            boardelm[0][2] === boardelm[1][2] && boardelm[1][2] === boardelm[2][2] && 
+            boardelm[0][2] !== '!' && boardelm[1][2] !== '!' && boardelm[2][2] !== '!' ){
+
+                let winner_displayelm = document.createElement('div');
+                winner_displayelm.textContent = `${symbol} is the winner`;
+
+                if(should_print){
+                    document.body.appendChild(winner_displayelm);
+                    should_print = false;
+                }
+                
+        }    
+
+        //diagonal l -> r
+        else if(
+            boardelm[0][0] === boardelm[1][1] && boardelm[1][1] === boardelm[2][2] && 
+            boardelm[0][0] !== '!' && boardelm[1][1] !== '!' && boardelm[2][2] !== '!' ){
+
+                let winner_displayelm = document.createElement('div');
+                winner_displayelm.textContent = `${symbol} is the winner`;
+
+                if(should_print){
+                    document.body.appendChild(winner_displayelm);
+                    should_print = false;
+                }
+        }
+
+        //diagonal r -> l
+        else if(
+            boardelm[2][0] === boardelm[1][1] && boardelm[1][1] === boardelm[0][2] && 
+            boardelm[2][0] !== '!' && boardelm[1][1] !== '!' && boardelm[0][2] !== '!' ){
+
+                let winner_displayelm = document.createElement('div');
+                winner_displayelm.textContent = `${symbol} is the winner`;
+
+                if(should_print){
+                    document.body.appendChild(winner_displayelm);
+                    should_print = false;
+                }
+        }
+
+        // else{
+        //     let winner_displayelm = document.createElement('div');
+        //     winner_displayelm.textContent = 'TIE';
+
+        //     if(should_print){
+        //         document.body.appendChild(winner_displayelm);
+        //         should_print = false;
+        //     }
+        // }
+
+        if(!should_print){
+            restarter();
+        }
+    }
+
+    return {checker, should_print};
+
+})();
 
 let display_container = (() => {
     let display_area = document.querySelector('.display-area');
@@ -23,8 +160,11 @@ let display_container = (() => {
     //     });
     // }
 
+    let player1_turn = true;
+
     let display = () => {
         gameboard_holder.gameboard.forEach((board_row, rw_index) => {
+
             let rowEl = document.createElement('div');
             rowEl.className = 'row rw-el';
 
@@ -37,7 +177,6 @@ let display_container = (() => {
                 symbolEl.addEventListener('click', () => {
                     
                     symbolEl.style = "background-color: blue;";
-                    console.log(symbolEl.textContent); // ' ' blank output
 
                     // if(symbolEl.textContent !== '!'){ //this outer if is useless because div has just been created and is empty
                     //     if(symbolEl.textContent === 'x' || symbolEl.textContent === 'o'){
@@ -53,9 +192,20 @@ let display_container = (() => {
                     if(symbolEl.textContent === 'x' || symbolEl.textContent === 'o'){
                         //console.log('no entry');
                     } else{
-                        symbolEl.textContent = 'x';
-                        gameboard_holder.gameboard[rw_index][col_index] = symbolEl.textContent;
-                        console.log(gameboard_holder.gameboard);                  
+                        if(player1_turn){
+                            symbolEl.textContent = 'x';
+                            gameboard_holder.gameboard[rw_index][col_index] = symbolEl.textContent;
+                            console.log(gameboard_holder.gameboard);
+                            player1_turn = false;
+                            logic.checker('x');
+                        } else{
+                            symbolEl.textContent = 'o';
+                            gameboard_holder.gameboard[rw_index][col_index] = symbolEl.textContent;
+                            console.log(gameboard_holder.gameboard);
+                            player1_turn = true;
+                            logic.checker('o');
+                        }
+                                          
                     }
 
                 });
@@ -70,9 +220,21 @@ let display_container = (() => {
         })
     }
 
-    return {display};
+    return {display, display_area};
 
 })();
 
-display_container.display();
+let startelm = document.querySelector('.start-button');
+function starter(){
+    display_container.display();
+    startelm.innerHTML = '';
+}
+
+function restarter(){
+    startelm.textContent = 'PLAY AGAIN?';
+    startelm.addEventListener('click',() => {
+        display_container.display_area.innerHTML = '';
+        display_container.display();
+    });
+}
 
