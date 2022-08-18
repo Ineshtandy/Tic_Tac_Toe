@@ -24,28 +24,40 @@ let display_container = (() => {
     // }
 
     let display = () => {
-        gameboard_holder.gameboard.forEach(board_element => {
+        gameboard_holder.gameboard.forEach((board_row, rw_index) => {
             let rowEl = document.createElement('div');
             rowEl.className = 'row rw-el';
 
-            board_element.forEach(symbol => {
+            board_row.forEach((symbol, col_index) => {
+
                 let symbolEl = document.createElement('div');
                 symbolEl.className = 'col symbol-el';
-                //symbolEl.textContent = symbol;
 
                 // adding functionality
                 symbolEl.addEventListener('click', () => {
-                    //console.log(symbol);
+                    
                     symbolEl.style = "background-color: blue;";
-                    if(symbolEl.textContent !== '!'){
-                        if(symbolEl.textContent === 'x' || symbolEl.textContent === 'o'){
-                            console.log('no entry');
-                        } else{
-                            symbolEl.textContent = 'x';
-                            symbol = symbolEl.textContent;
-                            console.log(symbol);
-                        }
+                    console.log(symbolEl.textContent); // ' ' blank output
+
+                    // if(symbolEl.textContent !== '!'){ //this outer if is useless because div has just been created and is empty
+                    //     if(symbolEl.textContent === 'x' || symbolEl.textContent === 'o'){
+                    //         //console.log('no entry');
+                    //     } else{
+                    //         symbolEl.textContent = 'x';
+                    //         symbol = symbolEl.textContent;
+                            
+                    //     }
+
+                    // }
+
+                    if(symbolEl.textContent === 'x' || symbolEl.textContent === 'o'){
+                        //console.log('no entry');
+                    } else{
+                        symbolEl.textContent = 'x';
+                        gameboard_holder.gameboard[rw_index][col_index] = symbolEl.textContent;
+                        console.log(gameboard_holder.gameboard);                  
                     }
+
                 });
                 symbolEl.addEventListener('dblclick', () => {
                     symbolEl.style = "background-color: white;";
