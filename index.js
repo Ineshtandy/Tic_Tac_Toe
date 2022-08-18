@@ -144,7 +144,7 @@ let logic = (() => {
         }
     }
 
-    return {checker, should_print};
+    return {checker};
 
 })();
 
